@@ -14,9 +14,12 @@ type YubikeyKSM struct {
 	Creator string `gorm:"column:creator"`
 	Active bool  `gorm:"column:active"`
 	// whether it is hardware key
-	Hardware bool `gorm:"column:static"`
-	// static key
+	Hardware bool `gorm:"column:hardware"`
+	// static key if present/used
 	Static string `gorm:"column:static"`
+}
+func (YubikeyKSM) TableName() string {
+    return "yubiksm"
 }
 
 
@@ -40,3 +43,6 @@ type YubikeyOTP struct {
   Notes string `gorm:"column:notes"`
 }
 
+func (YubikeyOTP) TableName() string {
+    return "yubiotp"
+}
