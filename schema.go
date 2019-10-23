@@ -24,16 +24,17 @@ type YubikeyKSM struct {
 
 type YubikeyOTP struct {
   PublicName  string `gorm:"PRIMARY_KEY;column:ykpublicname"`
+  internalName string
   Active bool `gorm:"column:active"`
   // names same as in gorm.Model
   CreatedAt time.Time `gorm:"column:created"`
   UpdatedAt time.Time `gorm:"column:modified"`
   // increments after first generation after power on
-  // incerements if use counter overflows
+  // incerements if use counter overflows, persistent
   SessionCounter uint16 `gorm:"column:yk_counter"`
   // increments by 1 each token generation after first (0x00-0xff), overflows into session counter
   UseCounter uint8`gorm:"column:yk_use"`
-  // some internal YK stuff
+  // 24 bit timestamp
   YKTSLow uint16 `gorm:"column:yk_low"`
   YKTSHigh uint8 `gorm:"column:yk_high"`
   Notes string `gorm:"column:notes"`
