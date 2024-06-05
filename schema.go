@@ -4,8 +4,8 @@ import "time"
 
 // YubikeyKSM is GORM schema with info used by KSM, mostly similar to what Yubico tooling uses.
 type YubikeyKSM struct {
-	SerialNr     int       `gorm:"UNIQUE;column:serialnr;unique_index:serialnr_publicname" json:"serialnr"`
-	PublicName   string    `gorm:"PRIMARY_KEY;column:publicname;unique_index:serialnr_publicname" json:"publicname"`
+	SerialNr     int       `gorm:"PRIMARY_KEY;column:serialnr" json:"serialnr"`
+	PublicName   string    `gorm:"UNIQUE;column:publicname;unique_index" json:"publicname"`
 	CreatedAt    time.Time `gorm:"column:created"`
 	UpdatedAt    time.Time `gorm:"column:modified"`
 	InternalName string    `gorm:"column:internalname" json:"internalname"`
@@ -18,10 +18,10 @@ type YubikeyKSM struct {
 	// static key if present/used
 	Static string `gorm:"column:static" json:"static,omitempty"`
 }
-func (YubikeyKSM) TableName() string {
-    return "yubiksm"
-}
 
+func (YubikeyKSM) TableName() string {
+	return "yubiksm"
+}
 
 //YubikeyOTP is
 
@@ -44,5 +44,5 @@ type YubikeyOTP struct {
 }
 
 func (YubikeyOTP) TableName() string {
-    return "yubiotp"
+	return "yubiotp"
 }
